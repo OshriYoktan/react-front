@@ -1,0 +1,47 @@
+.axios-list {
+    padding: 20px;
+    .filter {
+        display: flex;
+        justify-content: center;
+    }
+    ul {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 25px;
+        margin: 25px 25px;
+        .item {
+            list-style: none;
+            height: 100px;
+            width: 100%;
+            border-radius: 10px;
+            transition: 0.5s;
+            opacity: 0.8;
+            box-shadow: 4px 7px 11px 0px #8e908e;
+            &:hover {
+                transform: translate(0, 20px);
+                cursor: pointer;
+            }
+        }
+        .add-user {
+            display: block;
+            &:hover {
+                transform: translate(0, 0);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .axios-list ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+}
+@media screen and (max-width: 490px) {
+    .axios-list ul {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+}
