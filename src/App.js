@@ -24,7 +24,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<AxiosDetails data={toys} />} path='/toy/:id' />
+        <Route element={<AxiosDetails data={toys} />} path='/todo/:id' />
         <Route element={<AxiosApp data={toys} />} path='/' />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

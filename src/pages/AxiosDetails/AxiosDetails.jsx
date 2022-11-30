@@ -14,15 +14,17 @@ export const AxiosDetails = (props) => {
     useEffect(() => {
 
         if (data) {
-            var currToy = data.find(t => t._id === id)
+            // var currToy = data.find(t => t._id === +id)  //MYSQL
+            var currToy = data.find(t => t._id === id)  //MONGODB
             setCurrToy(currToy)
 
         }
-    }, [data])
+    }, [data, id])
 
 
     const handleToyChange = (e) => {
-        const idx = data.findIndex(toy => toy._id === id)
+        // const idx = data.findIndex(toy => toy._id === +id)  //MYSQL
+        const idx = data.findIndex(toy => toy._id === id)  //MONGODB
         const editedToy = {...currToy, [e.target.name]: e.target.value}
         toyService.save(editedToy).then(res => {
             setCurrToy(res)

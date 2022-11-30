@@ -14,7 +14,7 @@ export const AxiosPreview = (props) => {
     }
 
     return (
-        <div onClick={() => navigate(`/toy/${user._id}`)} className='axios-preview'>
+        <div key={user._id} onClick={() => navigate(`/todo/${user._id}`)} className='axios-preview'>
             <a>{user.title}</a>
             <Moment fromNow>{user.date}</Moment>
             <button onClick={(e) => delUser(e,user._id)}>x</button>

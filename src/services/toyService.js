@@ -1,6 +1,6 @@
 import { httpService } from './httpService.js'
 
-const KEY = 'toy/'
+const KEY = 'todo/'
 
 export const toyService = {
     query,

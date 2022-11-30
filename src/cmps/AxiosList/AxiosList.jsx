@@ -20,7 +20,6 @@ export const AxiosList = (props) => {
 
 
     }
-
     const handleSubmit = (e) => {
         const newToy = { title: document.querySelector('.add-toy').value }
         toyService.save(newToy).then(res => {
@@ -44,7 +43,7 @@ export const AxiosList = (props) => {
     return (
         <div className='axios-list'>
             <div className="filter">
-                <input type="text" onChange={handleSearch} placeholder='Search User...' />
+                <input type="text" onChange={handleSearch} placeholder='Search Toy...' />
             </div>
             <ul>
                 {data && data.map(user => <li className='item' key={user._id}><AxiosPreview delUser={delUser} key={user._id} user={user}></AxiosPreview></li>)}
