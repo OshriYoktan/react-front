@@ -1,6 +1,8 @@
+import { Button, TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {toyService} from '../../services/toyService'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './AxiosDetails.scss'
 
 export const AxiosDetails = (props) => {
@@ -14,8 +16,8 @@ export const AxiosDetails = (props) => {
     useEffect(() => {
 
         if (data) {
-            // var currToy = data.find(t => t._id === +id)  //MYSQL
-            var currToy = data.find(t => t._id === id)  //MONGODB
+            var currToy = data.find(t => t._id === +id)  //MYSQL
+            // var currToy = data.find(t => t._id === id)  //MONGODB
             setCurrToy(currToy)
 
         }
@@ -23,8 +25,8 @@ export const AxiosDetails = (props) => {
 
 
     const handleToyChange = (e) => {
-        // const idx = data.findIndex(toy => toy._id === +id)  //MYSQL
-        const idx = data.findIndex(toy => toy._id === id)  //MONGODB
+        const idx = data.findIndex(toy => toy._id === +id)  //MYSQL
+        // const idx = data.findIndex(toy => toy._id === id)  //MONGODB
         const editedToy = {...currToy, [e.target.name]: e.target.value}
         toyService.save(editedToy).then(res => {
             setCurrToy(res)
@@ -37,11 +39,11 @@ export const AxiosDetails = (props) => {
 
 
     return (
-        <div style={{  height: '100vh' }}>
+        <div className='fruit-details'>
             {currToy ?
-                <div >
-                    <input type="text" onChange={handleToyChange} name='title' value={currToy.title} />
-                    <button onClick={() => navigate('/')}>Go Back</button>
+                <div className='form-details' >
+                    <TextField type="text" onChange={handleToyChange} name='title' label={currToy.title} value={currToy.title} />
+                    <Button  onClick={() => navigate('/')}> <ArrowBackIcon fontSize='large' /></Button>
                 </div> 
                 :<p>Not Found</p> 
             }
