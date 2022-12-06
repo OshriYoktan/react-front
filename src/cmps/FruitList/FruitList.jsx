@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
-import { toyService } from '../../services/toyService'
-import { AxiosPreview } from '../AxiosPreview/AxiosPreview'
+import { fruitService } from '../../services/fruitService'
 import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
+import './FruitList.scss'
 
-import './AxiosList.scss'
-
-export const AxiosList = (props) => {
+export const FruitList = (props) => {
     const [data, setData] = useState(null)
     const [addUserModal, setUserModal] = useState(false)
 
@@ -24,25 +22,25 @@ export const AxiosList = (props) => {
         const idx = data.findIndex(user => user._id === id)
         data.splice(idx, 1)
         setData([...data])
-        toyService.remove(id)
+        fruitService.remove(id)
 
 
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        const newToy = { title: document.getElementById('addfruit').value }
-        if (newToy.title.length === 0) return
-        toyService.save(newToy).then(res => {
+        const newFruit = { title: document.getElementById('addfruit').value, price:document.getElementById('add-fruit-price').value  }
+        if (newFruit.title.length === 0 || newFruit.price.length === 0) return
+        fruitService.save(newFruit).then(res => {
             data.push(res)
             setData([...data])
         })
-        document.querySelector('.add-toy').value = ''
+        document.querySelector('.add-fruit').value = ''
     }
 
     const handleSearch = (e) => {
-        toyService.query(e.target.value)
-            .then(toys => {
-                setData(toys)
+        fruitService.query(e.target.value)
+            .then(fruits => {
+                setData(fruits)
             })
             .catch(err => console.log('Error:', err))
     }
@@ -53,7 +51,7 @@ export const AxiosList = (props) => {
 
 
     return (
-        <div className='axios-list'>
+        <div className='fruit-list'>
             <div className="filter">
                 <TextField onChange={handleSearch} label='Search Fruit...'></TextField>
             </div>
@@ -69,11 +67,6 @@ export const AxiosList = (props) => {
                     </TableHead>
                     <TableBody>
                         {data && data.map(user =>
-                            // <li className='item' key={user._id}>
-                            //     <AxiosPreview delUser={delUser} key={user._id} user={user}>
-                            //     </AxiosPreview>
-                            // </li>
-
                             <TableRow
                                 key={user._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -81,8 +74,8 @@ export const AxiosList = (props) => {
                                 <TableCell className='link' component="th" scope="row">
                                     {user.title}
                                 </TableCell>
-                                <TableCell align="center">{user._id}</TableCell>
-                                <TableCell align="center"><Button variant="outlined" startIcon={<EditIcon />} onClick={() => navigate(`/todo/${user._id}`)}>EDIT</Button></TableCell>
+                                <TableCell align="center">{user.price}</TableCell>
+                                <TableCell align="center"><Button variant="outlined" startIcon={<EditIcon />} onClick={() => navigate(`/fruit/${user._id}`)}>EDIT</Button></TableCell>
                                 <TableCell align="center"><Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => delUser(user._id)}>DELETE</Button></TableCell>
                             </TableRow>
 
@@ -92,7 +85,8 @@ export const AxiosList = (props) => {
             </TableContainer>
             {addUserModal ?
                 <form onSubmit={handleSubmit} className='item add-user'>
-                    <TextField type="text" className='add-toy' id='addfruit' label='Enter A Name' > </TextField>
+                    <TextField type="text" className='add-fruit' id='addfruit' label='Enter A Name' > </TextField>
+                    <TextField type="number" className='add-fruit' id='add-fruit-price' label='Enter A Price' > </TextField>
                     <Button variant="contained" type='submit' color="success"> Add </Button>
                     <Button variant="outlined" color="error" onClick={(e) => { setUserModal(!addUserModal); e.preventDefault();  }}>Close</Button>
                 </form>

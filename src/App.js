@@ -1,31 +1,25 @@
-import { AxiosApp } from "./pages/AxiosApp/AxiosApp";
+import { FruitApp } from "./pages/FruitApp/FruitApp";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AxiosDetails } from "./pages/AxiosDetails/AxiosDetails";
+import { FruitDetails } from "./pages/FruitDetails/FruitDetails";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage";
-import { useDispatch, useSelector } from "react-redux";
-import { getData } from "./store/actions/getData";
-import { toyService } from "./services/toyService";
+import { fruitService } from "./services/fruitService";
 
 function App() {
-  const dispatch = useDispatch()
-  const data = useSelector(state => state.dataReducer)
-  const [toys, setToys] = useState(null)
+  const [fruits, setFruits] = useState(null)
 
   useEffect(() => {
-    toyService.query('')
-      .then(toys => {
-        setToys(toys)
-        dispatch(getData(toys))
+    fruitService.query('')
+      .then(fruits => {
+        setFruits(fruits)
       })
       .catch(err => console.log('Error', err))
   }, [])
   return (
     <Router>
       <Routes>
-        <Route element={<AxiosDetails data={toys} />} path='/todo/:id' />
-        <Route element={<AxiosApp data={toys} />} path='/' />
+        <Route element={<FruitDetails data={fruits} />} path='/fruit/:id' />
+        <Route element={<FruitApp data={fruits} />} path='/' />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>

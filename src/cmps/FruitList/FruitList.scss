@@ -1,4 +1,4 @@
-.axios-list {
+.fruit-list {
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -42,13 +42,13 @@
 }
 
 @media screen and (max-width: 960px) {
-    .axios-list ul {
+    .fruit-list ul {
         grid-template-columns: repeat(2, 1fr);
     }
     
 }
 @media screen and (max-width: 490px) {
-    .axios-list ul {
+    .fruit-list ul {
         grid-template-columns: repeat(1, 1fr);
     }
     
